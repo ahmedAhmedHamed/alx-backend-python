@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-module for the to_str function with type annotation
+declaring a few variables and annotating them
 """
 
 
