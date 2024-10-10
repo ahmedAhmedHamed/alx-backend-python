@@ -7,6 +7,6 @@ from typing import List, Union
 
 def sum_mixed_list(mxd_lst: List[Union[float | int]]) -> float:
     """
-    adds a and b, meant for floats and integers only.
+    returns the sum of a list of floats and integers only.
     """
     return sum(mxd_lst)
