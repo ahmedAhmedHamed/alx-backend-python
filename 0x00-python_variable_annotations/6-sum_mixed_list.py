@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-""" module for the sum_mixed_list function with type annotation """
-import typing
+""" mixed list question """
+from typing import Union, List
 
 
-def sum_mixed_list(mxd_lst: typing.List[typing.Union[float | int]]) -> float:
-    """ returns the sum of a list of floats and integers only. """
+def sum_mixed_list(mxd_lst: List[Union[float | int]]) -> float:
+    """ returns sum as a float. """
     return float(sum(mxd_lst))
