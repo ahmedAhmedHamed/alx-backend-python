@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """ final annotation exercise """
-from typing import Tuple
+from typing import Tuple, List
 
 
-def zoom_array(lst: Tuple, factor: int = 2) -> Tuple:
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
     """ zooms in an array by duplicating its members """
-    zoomed_in: Tuple = tuple(
-        [item for item in lst
-         for i in range(factor)]
-    )
+    zoomed_in: List = [
+        item for item in lst
+        for _ in range(factor)
+    ]
     return zoomed_in
 
 
