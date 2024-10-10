@@ -2,10 +2,10 @@
 """
 module for the to_kv function with type annotation
 """
-from typing import Union
+from typing import Union, Tuple
 
 
-def to_kv(k: str, v: Union[int, float]) -> tuple[str, float]:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """
     adds a and b, meant for floats and integers only.
     """
