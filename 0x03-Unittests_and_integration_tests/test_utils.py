@@ -7,7 +7,7 @@ from unittest import TestCase
 from unittest.mock import patch
 from parameterized import parameterized
 import utils
-
+from utils import memoize
 
 class TestAccessNestedMap(TestCase):
     """
@@ -20,7 +20,7 @@ class TestAccessNestedMap(TestCase):
     ])
     def test_access_nested_map(self, nested_map, path, expected):
         """
-        this test is ran 3 times for different inputs
+        this test is run 3 times for different inputs
         """
         self.assertEqual(utils.access_nested_map(nested_map, path), expected)
 
@@ -30,7 +30,7 @@ class TestAccessNestedMap(TestCase):
     ])
     def test_access_nested_map_exception(self, nested_map, path):
         """
-        tries to access non existing keys and raises key error
+        tries to access non-existing keys and raises key error
         """
         self.assertRaises(KeyError, utils.access_nested_map, nested_map, path)
 
@@ -65,3 +65,27 @@ class TestGetJson(unittest.TestCase):
         mock_requests.return_value = self.Jsongetter(test_payload)
 
         self.assertEqual(utils.get_json(test_url), test_payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """tests the memoize decorator"""
+    class TestClass:
+        """test class"""
+
+        def a_method(self):
+            """a method to test memoize"""
+            return 42
+
+        @memoize
+        def a_property(self):
+            """a property to test memoize"""
+            return self.a_method()
+
+    @patch('test_utils.TestMemoize.TestClass.a_method')
+    def test_memoize(self, mock_method):
+        mock_method.return_value = 42
+        t = self.TestClass()
+        self.assertEqual(t.a_property, 42)
+        self.assertEqual(t.a_property, 42)
+        mock_method.assert_called_once()
+
