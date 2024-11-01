@@ -4,6 +4,7 @@ tests the utils module
 """
 import unittest
 from unittest import TestCase
+from unittest.mock import patch
 from parameterized import parameterized
 import utils
 
@@ -32,3 +33,35 @@ class TestAccessNestedMap(TestCase):
         tries to access non existing keys and raises key error
         """
         self.assertRaises(KeyError, utils.access_nested_map, nested_map, path)
+
+
+class TestGetJson(unittest.TestCase):
+    """
+    tests get_json
+    """
+
+    class Jsongetter:
+        """
+        class to mock return of requests.get
+        """
+
+        def __init__(self, json):
+            """
+            initialisation here
+            """
+            self.__json = json
+
+        def json(self):
+            """ requests.get().json() """
+            return self.__json
+
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False})
+    ])
+    @patch('requests.get')
+    def test_get_json(self, test_url, test_payload, mock_requests):
+        """tests get json"""
+        mock_requests.return_value = self.Jsongetter(test_payload)
+
+        self.assertEqual(utils.get_json(test_url), test_payload)
