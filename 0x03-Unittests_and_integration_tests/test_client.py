@@ -3,7 +3,6 @@
 tests the client module
 """
 import unittest
-from unittest import mock
 from unittest.mock import patch, MagicMock, PropertyMock
 from parameterized import parameterized
 from client import GithubOrgClient
@@ -28,6 +27,7 @@ class TestGithubOrgClient(unittest.TestCase):
             f"https://api.github.com/orgs/{org}")
 
     def test_public_repos_url(self):
+        """ test_public_repos_url """
         with patch('client.GithubOrgClient.org',
                    new_callable=PropertyMock) as mock_org:
             payload = "returned payload"
@@ -37,6 +37,9 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json: MagicMock):
+        """
+        tests public repos property, mocking everything
+        """
         payload = {"repos_url": "test"}
         mock_get_json.return_value = payload
         with patch('client.GithubOrgClient._public_repos_url',
