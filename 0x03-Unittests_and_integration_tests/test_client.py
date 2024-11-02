@@ -3,7 +3,7 @@
 tests the client module
 """
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from parameterized import parameterized
 from client import GithubOrgClient
 
@@ -18,7 +18,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", "https://api.github.com/orgs/abc")
     ])
     @patch('client.get_json')
-    def test_org(self, org, expected, mock_get_json):
+    def test_org(self, org: str, expected: str, mock_get_json: MagicMock):
         """ test that GithubOrgClient.org returns the correct value. """
         mock_get_json.return_value = expected
         my_client = GithubOrgClient(org)
