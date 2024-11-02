@@ -34,3 +34,15 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_org.return_value = {"repos_url": "returned payload"}
             my_client = GithubOrgClient("test")
             self.assertEqual(my_client._public_repos_url, payload)
+
+    @patch('client.get_json')
+    def test_public_repos(self, mock_get_json: MagicMock):
+        payload = {"repos_url": "test"}
+        mock_get_json.return_value = payload
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mock_org:
+            payload = "test"
+            mock_org.return_value = payload
+            my_client = GithubOrgClient("test")
+            self.assertEqual(my_client._public_repos_url, payload)
+
