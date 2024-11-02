@@ -48,4 +48,3 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_org.return_value = payload
             my_client = GithubOrgClient("test")
             self.assertEqual(my_client._public_repos_url, payload)
-
