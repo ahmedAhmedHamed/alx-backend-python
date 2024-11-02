@@ -9,6 +9,7 @@ from parameterized import parameterized
 import utils
 from utils import memoize
 
+
 class TestAccessNestedMap(TestCase):
     """
     tests access nested map
@@ -83,6 +84,9 @@ class TestMemoize(unittest.TestCase):
 
     @patch('test_utils.TestMemoize.TestClass.a_method')
     def test_memoize(self, mock_method):
+        """
+        tests memoize
+        """
         mock_method.return_value = 42
         t = self.TestClass()
         self.assertEqual(t.a_property, 42)
