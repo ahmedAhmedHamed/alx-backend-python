@@ -96,7 +96,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         self.assertEqual(my_client.public_repos(), self.expected_repos)
         self.assertEqual(my_client.public_repos("amongus"), [])
         self.assertEqual(my_client.public_repos(
-            "apache-2.0"), self.apache2_repos)
+            license="apache-2.0"), self.apache2_repos)
         self.mock.assert_called()
 
     @classmethod
