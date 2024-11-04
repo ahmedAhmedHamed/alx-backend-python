@@ -56,7 +56,8 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_has_license(self, repo: dict, license_key: str, expected: bool):
         """ to unit-test GithubOrgClient.has_license """
-        self.assertEqual(GithubOrgClient.has_license(repo, license_key), expected)
+        self.assertEqual(GithubOrgClient.has_license(repo, license_key),
+                         expected)
 
 
 @parameterized_class(
@@ -76,7 +77,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """
         config = {'return_value.json.side_effect':
                   [cls.org_payload, cls.repos_payload,
-                  cls.org_payload, cls.repos_payload]
+                   cls.org_payload, cls.repos_payload]
                   }
         cls.get_patcher = patch('requests.get', **config)
         cls.mock = cls.get_patcher.start()
@@ -87,14 +88,14 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         self.assertEqual(my_client.org, self.org_payload)
         self.assertEqual(my_client.repos_payload, self.repos_payload)
         self.assertEqual(my_client.public_repos(), self.expected_repos)
-        self.assertEqual(my_client.public_repos("XLICENSE"), [])
+        self.assertEqual(my_client.public_repos("notexisting"), [])
         self.mock.assert_called()
 
     def test_public_repos_with_license(self):
         """ tests public repos using apace-2.0 license """
         my_client = GithubOrgClient("google")
         self.assertEqual(my_client.public_repos(), self.expected_repos)
-        self.assertEqual(my_client.public_repos("XLICENSE"), [])
+        self.assertEqual(my_client.public_repos("notexisting"), [])
         self.assertEqual(my_client.public_repos(
             "apache-2.0"), self.apache2_repos)
         self.mock.assert_called()
