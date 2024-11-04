@@ -87,7 +87,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         self.assertEqual(my_client.org, self.org_payload)
         self.assertEqual(my_client.repos_payload, self.repos_payload)
         self.assertEqual(my_client.public_repos(), self.expected_repos)
-        self.assertEqual(my_client.public_repos("XLICENSE"), [])
+        self.assertEqual(my_client.public_repos("amongus"), [])
         self.mock.assert_called()
 
     def test_public_repos_with_license(self):
