@@ -78,8 +78,8 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
                   [cls.org_payload, cls.repos_payload,
                   cls.org_payload, cls.repos_payload]
                   }
-        cls.patcher = patch('requests.get', **config)
-        cls.mock = cls.patcher.start()
+        cls.get_patcher = patch('requests.get', **config)
+        cls.mock = cls.get_patcher.start()
 
     def test_public_repos(self):
         """ integration test for public repos """
@@ -94,7 +94,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """ tests public repos using apace-2.0 license """
         my_client = GithubOrgClient("google")
         self.assertEqual(my_client.public_repos(), self.expected_repos)
-        self.assertEqual(my_client.public_repos("XLICENSE"), [])
+        self.assertEqual(my_client.public_repos("amongus"), [])
         self.assertEqual(my_client.public_repos(
             "apache-2.0"), self.apache2_repos)
         self.mock.assert_called()
@@ -102,4 +102,4 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """ for stopping the patcher """
-        cls.patcher.stop()
+        cls.get_patcher.stop()
